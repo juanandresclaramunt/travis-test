@@ -1,0 +1,24 @@
+language: python
+python:
+  - "2.7"
+
+# command to install dependencies
+install:
+  - "pip install -r requirements.txt"
+  - pip install coveralls
+
+# We can also get notified or make bulid fail if there are any lint errors in the commit.
+before_script:
+    -./lint.sh
+
+# command to run tests
+script: coverage run --source=moscowdjango,meetup manage.py test
+
+# Coveralls is web service to help us track our code coverage over time and ensure that all our new code is fully covered.
+after_success:
+  coveralls
+  
+# Whitelisting example
+branches:
+  only:
+    - master
